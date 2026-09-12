@@ -42,6 +42,7 @@ Enable it; there is nothing to configure.
 
 - **GitHub:** https://github.com/ernestdefoe/since
 - **Packagist:** https://packagist.org/packages/ernestdefoe/since
+- **Support:** https://ernestdefoe.online/d/92
 - **Licence:** MIT
 
 Bug reports and ideas welcome — particularly from anyone running a theme that replaces `DiscussionPage`, since that is where the strip lives.
