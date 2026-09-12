@@ -1,0 +1,126 @@
+// The strip sits with the discussion's other context, not over the stream: a
+// returning reader is looking for what moved, not being interrupted by it.
+//
+// 🚨 Everything is nested inside `.Since-strip` on purpose. Core styles the
+// discussion sidebar with two-class selectors — `.DiscussionPage-nav .Button`
+// stretches every button in there to `width: 100%` — and a single-class rule
+// of ours simply loses to that. It is not a specificity war for its own sake:
+// a one-class `.Since-strip-dismiss { width: auto }` was silently overruled,
+// the dismiss button covered the whole strip, and its x painted in the middle
+// of the heading.
+.Since-strip {
+  position: relative;
+  margin-bottom: 15px;
+  min-width: 0;
+  padding: 12px 14px;
+  border-radius: var(--border-radius);
+  background: var(--control-bg);
+  color: var(--control-color);
+  overflow-wrap: anywhere; // a long username must not push out of the rail
+
+  // 🚨 The dismiss button is taken OUT of the text flow, and the icon put
+  // INTO it.
+  //
+  // This strip lives in the discussion sidebar, which in a compact theme is
+  // about 150px wide. A three-column row (icon | title | button) leaves the
+  // title roughly ninety pixels, and "3 posts changed while you were away"
+  // then wraps one word per line down the rail. Pinning the button to the
+  // corner and letting the icon sit inline with the first words gives the
+  // sentence the whole column, so it wraps like a sentence.
+  .Since-strip-header {
+    padding-right: 20px; // the corner the dismiss button occupies
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .Since-strip-icon {
+    margin-right: 6px;
+    opacity: 0.7;
+  }
+
+  // 🚨 Two separate things are needed here, and each was proved in the page.
+  //
+  // `&.Button`, because a theme stretches sidebar buttons with a rule of equal
+  // weight that lands later in the cascade — at two classes ours simply lost.
+  //
+  // `width: max-content`, not `auto`, because shrink-to-fit on this absolutely
+  // positioned flex button measured as the whole 146px rail instead of the
+  // 35px it needs.
+  //
+  // Either one missing and the button covers the heading, painting its x in
+  // the middle of "3 posts" rather than in the corner.
+  .Since-strip-dismiss.Button {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: max-content;
+    min-width: 0;
+    padding: 2px 5px;
+    opacity: 0.6;
+
+    &:hover,
+    &:focus {
+      opacity: 1;
+    }
+  }
+
+  .Since-strip-list {
+    margin: 10px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  // Name and time run as one sentence and wrap like prose. A flex row instead
+  // keeps "edited 5 minutes ago" in a column two words wide.
+  .Since-strip-item {
+    display: block;
+    padding: 3px 0;
+    color: inherit;
+    font-size: 90%;
+    line-height: 1.35;
+
+    &:hover,
+    &:focus {
+      color: inherit;
+      text-decoration: none;
+
+      .Since-strip-who {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .Since-strip-who {
+    margin-right: 5px;
+    font-weight: 600;
+  }
+
+  // Not `nowrap`: "edited 35 minutes ago" is wider than a compact theme's
+  // sidebar, and it spilled out past the strip's own background.
+  .Since-strip-when {
+    opacity: 0.7;
+  }
+
+  .Since-strip-more {
+    width: auto; // the same sidebar full-width rule as the dismiss button
+    padding: 6px 0 0;
+    font-size: 90%;
+    text-align: left;
+  }
+}
+
+// A quiet mark on the post itself. Loud enough to find when you are looking for
+// it, quiet enough that a thread full of edits is still readable.
+.Since-badge {
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background: var(--control-bg);
+  color: var(--muted-color);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.Post.Since-changed .PostUser-avatar {
+  box-shadow: 0 0 0 2px var(--primary-color);
+}

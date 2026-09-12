@@ -1,0 +1,23 @@
+{
+    "name": "ernestdefoe/since",
+    "description": "Since — what changed while you were away. Flarum shows a returning reader what is new; this shows what MOVED: the posts they had already read that were edited behind their back.",
+    "type": "flarum-extension",
+    "keywords": ["flarum", "unread", "edits", "changes"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ernestdefoe",
+            "email": "ernestdefoe@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "flarum/core": "^2.0"
+    },
+    "extra": {
+        "flarum-extension": {
+            "title": "Since",
+            "category": "feature"
+        }
+    }
+}
