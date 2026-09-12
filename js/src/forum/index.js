@@ -2,6 +2,7 @@ import app from 'flarum/forum/app';
 import { extend } from 'flarum/common/extend';
 
 import { snapshotFor, editedSinceRead, changedPosts } from './baseline';
+import { stampActiveTheme } from './themes';
 import ChangedStrip from './components/ChangedStrip';
 
 /*
@@ -18,6 +19,10 @@ import ChangedStrip from './components/ChangedStrip';
  * The string form defers the lookup until the chunk is loaded.
  */
 app.initializers.add('ernestdefoe-since', () => {
+  // Marks <html> when a theme Since can match is the one actually running, so
+  // the stylesheet can adopt that theme's tokens. See themes.js.
+  stampActiveTheme();
+
   /*
    * The strip: "3 posts changed while you were away".
    *

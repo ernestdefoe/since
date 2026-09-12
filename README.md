@@ -50,6 +50,22 @@ Entirely in the browser, from data the page already has.
 No tables, no settings, no backend: the extension ships PHP only to register its
 assets and locale.
 
+### Themes
+
+The strip is one panel in the discussion sidebar, and a panel that ignores the
+theme around it looks bolted on. On a forum running
+[Bespoke](https://ernestdefoe.online), the strip takes that theme document's
+own surface, border, radius, elevation, density and heading font — including a
+theme the owner has customised, since a customised Bespoke is a different set
+of token *values* under the same names.
+
+That styling is gated on the theme actually running, not on its variables being
+present: Bespoke publishes its `:root` block server-side on every request, so
+under [Wardrobe](https://github.com/ernestdefoe/wardrobe) a member reading in a
+different theme is still sent Bespoke's variables. Since keys off
+`flarum.extensions` instead, which holds only what is in the bundle that page is
+running.
+
 **The snapshot is the whole trick.** Flarum `PATCH`es your read state as you
 scroll, which overwrites the very attributes this compares against — so reading
 the discussion destroys the record of what you had already read. Since captures

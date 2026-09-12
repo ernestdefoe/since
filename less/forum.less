@@ -124,3 +124,71 @@
 .Post.Since-changed .PostUser-avatar {
   box-shadow: 0 0 0 2px var(--primary-color);
 }
+
+// ============================================================
+//  Bespoke
+// ============================================================
+//
+// Bespoke is a theme BUILDER: the owner's colours, radius, border width,
+// elevation, density and heading font live in a theme document as
+// `--bespoke-*` custom properties, and every panel Bespoke draws is
+//
+//   background: var(--bespoke-color-surface);
+//   border: var(--bespoke-border-width) solid var(--bespoke-color-border);
+//   border-radius: var(--bespoke-radius);
+//   box-shadow: var(--bespoke-elevation);
+//
+// Restating that recipe here is what makes the strip belong to whatever the
+// owner has built, customised themes included — a customised Bespoke is a
+// different set of token VALUES under the same names. Left alone, the strip
+// drew core's 4px corners in a rail of 14px panels, which reads as broken
+// rather than plain.
+//
+// 🚨 Gated on the `data-since-theme` attribute the initializer stamps, NOT on
+// the variables simply being there. Bespoke injects its `:root` block
+// server-side on every request, so on a forum running Wardrobe a member who
+// has chosen a DIFFERENT theme still receives Bespoke's variables — and the
+// strip would then wear Bespoke's radius and surface in the middle of
+// somebody else's theme. The attribute is set from `flarum.extensions`, which
+// under Wardrobe contains only the theme that is actually running.
+[data-since-theme='bespoke'] {
+  .Since-strip {
+    margin-bottom: ~'calc(15px * var(--bespoke-density, 1))';
+    padding: ~'calc(12px * var(--bespoke-density, 1))' 14px;
+    background: var(--bespoke-color-surface);
+    border: var(--bespoke-border-width) solid var(--bespoke-color-border);
+    border-radius: var(--bespoke-radius);
+    box-shadow: var(--bespoke-elevation);
+  }
+
+  // In a rail of Bespoke headings this was the only dim one, in the only
+  // other typeface.
+  //
+  // 🚨 No trailing fallback in the font list: `inherit` is valid only as the
+  // whole value, so `var(--x, inherit), inherit` is an invalid declaration.
+  .Since-strip-header {
+    color: var(--bespoke-color-text);
+    font-family: var(--bespoke-font-heading, inherit);
+    font-weight: var(--bespoke-heading-weight, 600);
+  }
+
+  // Bespoke draws its chips at 0.7 of the panel radius — which at its default
+  // 14px is the 10px this had anyway.
+  .Since-badge {
+    border: var(--bespoke-border-width) solid var(--bespoke-color-border);
+    border-radius: ~'calc(var(--bespoke-radius) * 0.7)';
+  }
+
+  // Glass mode frosts every panel Bespoke knows about by name, and it cannot
+  // name this one — so the strip restates that too, or it sits in a frosted
+  // rail as the one solid block.
+  //
+  // 🚨 `color-mix()` has to be escaped: less.php parses it as a function call
+  // and errors on the `in srgb` argument.
+  &[data-bespoke-glass='on'] .Since-strip {
+    background: ~'color-mix(in srgb, var(--bespoke-color-surface) 72%, transparent)';
+    border-color: ~'color-mix(in srgb, var(--bespoke-color-border) 60%, transparent)';
+    -webkit-backdrop-filter: saturate(1.4) blur(12px);
+    backdrop-filter: saturate(1.4) blur(12px);
+  }
+}
