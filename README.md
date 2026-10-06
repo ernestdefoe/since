@@ -94,9 +94,11 @@ composer require ernestdefoe/since
 
 Nothing to configure — enable it and it works.
 
-## Discuss
+## Support
 
-Questions, ideas and release notes: [Since on discuss.flarum.org](https://discuss.flarum.org/d/39846-since-see-what-changed-while-you-were-away-built-using-ai).
+- **Support forum:** [Since on ernestdefoe.online](https://ernestdefoe.online/d/92)
+- **Flarum community:** [Since on discuss.flarum.org](https://discuss.flarum.org/d/39846-since-see-what-changed-while-you-were-away-built-using-ai)
+- **Bug reports:** [GitHub issues](https://github.com/ernestdefoe/since/issues)
 
 ## Licence
 
