@@ -79,9 +79,7 @@ export function changedPosts(discussion) {
 
   if (!snapshot?.hasVisited) return [];
 
-  return (discussion.posts() || [])
-    .filter((post) => post && post.contentType?.() === 'comment')
-    .filter((post) => editedSinceRead(post, snapshot));
+  return (discussion.posts() || []).filter((post) => post && post.contentType?.() === 'comment').filter((post) => editedSinceRead(post, snapshot));
 }
 
 export function currentUser() {

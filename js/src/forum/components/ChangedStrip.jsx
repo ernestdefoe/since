@@ -62,7 +62,9 @@ export default class ChangedStrip extends Component {
                   m.route.set(app.route.discussion(post.discussion(), post.number()));
                 }}
               >
-                <span className="Since-strip-who">{post.user() ? username(post.user()) : app.translator.trans('ernestdefoe-since.forum.strip.someone')}</span>
+                <span className="Since-strip-who">
+                  {post.user() ? username(post.user()) : app.translator.trans('ernestdefoe-since.forum.strip.someone')}
+                </span>
                 <span className="Since-strip-when">
                   {app.translator.trans('ernestdefoe-since.forum.strip.edited', { time: humanTime(post.editedAt()) })}
                 </span>
