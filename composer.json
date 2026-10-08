@@ -2,7 +2,12 @@
     "name": "ernestdefoe/since",
     "description": "Since — what changed while you were away. Flarum shows a returning reader what is new; this shows what MOVED: the posts they had already read that were edited behind their back.",
     "type": "flarum-extension",
-    "keywords": ["flarum", "unread", "edits", "changes"],
+    "keywords": [
+        "flarum",
+        "unread",
+        "edits",
+        "changes"
+    ],
     "license": "MIT",
     "authors": [
         {
@@ -17,6 +22,11 @@
         "php": "^8.3",
         "flarum/core": "^2.0"
     },
+    "autoload-dev": {
+        "psr-4": {
+            "ErnestDefoe\\Since\\Tests\\": "tests/"
+        }
+    },
     "extra": {
         "flarum-extension": {
             "title": "Since",
@@ -27,5 +37,25 @@
                 "color": "#fff"
             }
         }
-    }
+    },
+    "require-dev": {
+        "flarum/phpstan": "^2.0",
+        "flarum/testing": "^2.0"
+    },
+    "scripts": {
+        "test": [
+            "@test:integration"
+        ],
+        "test:integration": "phpunit -c tests/phpunit.integration.xml",
+        "test:setup": "@php tests/integration/setup.php",
+        "analyse:phpstan": "phpstan analyse"
+    },
+    "scripts-descriptions": {
+        "test": "Runs all tests.",
+        "test:integration": "Runs all integration tests.",
+        "test:setup": "Sets up a database for use with integration tests. Execute this only once.",
+        "analyse:phpstan": "Run static analysis"
+    },
+    "minimum-stability": "beta",
+    "prefer-stable": true
 }
